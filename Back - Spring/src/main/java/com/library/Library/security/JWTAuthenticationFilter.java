@@ -12,9 +12,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.logging.Logger;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    private static final Logger logger = Logger.getLogger(JWTAuthenticationFilter.class.getName());
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
@@ -43,6 +45,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         UserDetailsImpl userDetails =  (UserDetailsImpl) authResult.getPrincipal();
         String token = TokenUtils.createToken(userDetails.getUsername());
+
+        logger.info("Valor del token: " + token);
 
         response.addHeader("Authorization", "Bearer" + token);
         response.getWriter().flush();
