@@ -1,22 +1,24 @@
 import React from "react";
 import { useState } from "react";
 import axios from "../config/axios";
-
+import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField } from "@mui/material";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    let dataToSend = { username, password };
+    let user = { username, password };
     axios
-    .post("/login", dataToSend, { withCredentials: true })
+    .post("/login", user)
     .then((res) => {
       console.log("Respuesta del servidor:", res);
       const token = res.headers.authorization;
       console.log("Valor del token:", token);
       localStorage.setItem("token", token);
+      navigate("/books");
     })
     .catch((err) => {
       console.log("Error al intentar autenticar:", err);

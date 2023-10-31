@@ -48,7 +48,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         logger.info("Valor del token: " + token);
 
-        response.addHeader("Authorization", "Bearer" + token);
+        response.addHeader("Authorization", "Bearer " + token);
         response.getWriter().flush();
 
         super.successfulAuthentication(request, response, chain, authResult);
