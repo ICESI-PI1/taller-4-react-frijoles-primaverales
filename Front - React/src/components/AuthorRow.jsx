@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { TableRow, TableCell, Button, } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 function AuthorRow({author, delAuthor, editAuthor }) {
   const  handleDelete = () =>  {
@@ -15,7 +16,10 @@ function AuthorRow({author, delAuthor, editAuthor }) {
           <TableCell align="left">{author.nationality}</TableCell>
           <TableCell align="left">
             <Button variant="contained" color="error" onClick={handleDelete}>Delete</Button>&nbsp;
-            <Button variant="contained" color="success" onClick={()=>{editAuthor(author)}}>Edit</Button>
+            <Button variant="contained" color="success" onClick={()=>{editAuthor(author)}}>Edit</Button>&nbsp;
+            <Link to={`/authors/${author.id}/books`}>
+            <Button variant="contained" color="info">Show Books</Button>
+            </Link>
           </TableCell>
         </TableRow>  )
 }

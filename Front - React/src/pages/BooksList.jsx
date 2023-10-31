@@ -45,7 +45,7 @@ function BookList({ owner }) {
       book.id = Math.floor(Math.random() * 100000);
       try {
         const res = await axios.post("/books", book);
-        if (res.status == 201) getBooks();
+        if (res.status == 201 || res.status == 200) getBooks();
       } catch (e) {
         console.log(e);
       }
@@ -57,6 +57,7 @@ function BookList({ owner }) {
         console.log(e);
       }
     }
+    setBookEdit({ id: "", title: "", author: "" });
   };
 
   const delBook = async (id) => {
@@ -70,7 +71,7 @@ function BookList({ owner }) {
 
   return (
     <BookContext.Provider value={{ bookEdit, setBookEdit }}>
-      {owner}s BookList
+      BookList
       <BookForm authorList={authorList} addBook={addBook} bookEdit={bookEdit} />
       <BookTable bookList={bookList} delBook={delBook} editBook={setBookEdit} />
     </BookContext.Provider>

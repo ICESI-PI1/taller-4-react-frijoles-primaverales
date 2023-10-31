@@ -9,8 +9,8 @@ function AuthorList({ owner }) {
   const [authorList, setAuthorList] = useState([]);
   const [authorEdit, setAuthorEdit] = useState({
     id: "",
-    nationality: "",
-    completed: "",
+    name: "",
+    nationality: ""
   });
 
   const getAuthors = async () => {
@@ -31,7 +31,7 @@ function AuthorList({ owner }) {
       author.id = Math.floor(Math.random() * 100000);
       try {
         const res = await axios.post("/authors", author);
-        if (res.status == 201) getAuthors();
+        if (res.status == 201 || res.status == 200) getAuthors();
       } catch (e) {
         console.log(e);
       }
@@ -43,6 +43,7 @@ function AuthorList({ owner }) {
         console.log(e);
       }
     }
+    setAuthorEdit({ id: "", name: "", nationality: "" });
   };
 
   const delAuthor = async (id) => {
@@ -56,7 +57,7 @@ function AuthorList({ owner }) {
 
   return (
     <AuthorContext.Provider value={{ authorEdit, setAuthorEdit }}>
-      {owner}s AuthorList
+      AuthorList
       <AuthorForm addAuthor={addAuthor} authorEdit={authorEdit} />
       <AuthorTable
         authorList={authorList}

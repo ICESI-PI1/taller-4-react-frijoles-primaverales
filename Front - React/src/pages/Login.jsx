@@ -9,18 +9,19 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const handleClick = () => {
-    let user = { username, password };
+    let dataToSend = { username, password };
     axios
-      .post("/login", user)
-      .then((res) => {
-        console.log("Respuesta del servidor:", res);
-        console.log("Valor del token:", res.data.token);
-        localStorage.setItem("token", res.data.token);
-      })
-      .catch((err) => {
-        console.log("Error al intentar autenticar:", err);
-      });
-  };
+    .post("/login", dataToSend, { withCredentials: true })
+    .then((res) => {
+      console.log("Respuesta del servidor:", res);
+      const token = res.headers.authorization;
+      console.log("Valor del token:", token);
+      localStorage.setItem("token", token);
+    })
+    .catch((err) => {
+      console.log("Error al intentar autenticar:", err);
+    });
+    };
   return (
     <Box
       component="form"
