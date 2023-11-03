@@ -1,13 +1,17 @@
 import React from "react";
 import { useState } from "react";
-import axios from "../config/axios";
+//import axios from "../config/axios";
 import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Box, Button, TextField } from "@mui/material";
+import axios from '../config/axios';
+import setAuthorizationToken from '../config/axios';
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  localStorage.setItem("token", null);
 
   const handleClick = () => {
     let user = { username, password };
@@ -16,8 +20,8 @@ function Login() {
     .then((res) => {
       console.log("Respuesta del servidor:", res);
       const token = res.headers.authorization;
-      console.log("Valor del token:", token);
       localStorage.setItem("token", token);
+      axios.defaults.headers.common['Authorization'] = token;
       navigate("/books");
     })
     .catch((err) => {

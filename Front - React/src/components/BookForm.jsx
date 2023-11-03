@@ -31,7 +31,7 @@ function BookForm({ authorList, addBook, bookEdit }) {
 
   const renderAuthors = () => {
     return authorList.map((author) => (
-      <MenuItem value={author}>{author.name}</MenuItem>
+      <MenuItem key={author.id} value={author}>{author.name}</MenuItem>
     ));
   };
 
