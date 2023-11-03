@@ -11,7 +11,7 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  localStorage.setItem("token", null);
+  localStorage.clear();
 
   const handleClick = () => {
     let user = { username, password };
